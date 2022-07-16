@@ -1,3 +1,7 @@
+let page = 1
+let maxPage;
+let infiniteScroll;
+
 searchFormBtn.addEventListener('click', () => {
   location.hash = '#search=' + searchFormInput.value;
 });
@@ -8,15 +12,21 @@ trendingBtn.addEventListener('click', () => {
 
 arrowBtn.addEventListener('click', () => {
   history.back();
-  // location.hash = '#home';
 });
 
 window.addEventListener('DOMContentLoaded', navigator, false);
 window.addEventListener('hashchange', navigator, false);
+window.addEventListener('scroll', infiniteScroll, false)
+
+
 
 function navigator() {
   console.log({ location });
-  
+
+  if (infiniteScroll) {
+    window.removeEventListener('scroll', infiniteScroll, { passive: false });
+    infiniteScroll = undefined;
+  }
   if (location.hash.startsWith('#trends')) {
     trendsPage();
   } else if (location.hash.startsWith('#search=')) {
@@ -27,6 +37,9 @@ function navigator() {
     categoriesPage();
   } else {
     homePage();
+  }
+  if (infiniteScroll) {
+    window.addEventListener('scroll', infiniteScroll, { passive: false })
   }
 
   document.body.scrollTop = 0;
@@ -48,7 +61,7 @@ function homePage() {
   categoriesPreviewSection.classList.remove('inactive');
   genericSection.classList.add('inactive');
   movieDetailSection.classList.add('inactive');
-  
+
   getTrendingMoviesPreview();
   getCategegoriesPreview();
 }
@@ -74,8 +87,10 @@ function categoriesPage() {
   const [categoryId, categoryName] = categoryData.split('-');
 
   headerCategoryTitle.innerHTML = categoryName;
-  
+
   getMoviesByCategory(categoryId);
+  infiniteScroll = getPaginatedCategoryMovies(categoryId)
+
 }
 
 function movieDetailsPage() {
@@ -118,6 +133,8 @@ function searchPage() {
   // ['#search', 'platzi']
   const [_, query] = location.hash.split('=');
   getMoviesBySearch(query);
+  infiniteScroll = getPaginatedMoviesBySearch(query)
+
 }
 
 function trendsPage() {
@@ -137,6 +154,7 @@ function trendsPage() {
   movieDetailSection.classList.add('inactive');
 
   headerCategoryTitle.innerHTML = 'Tendencias';
+  infiniteScroll = getPaginatedTrendingMovies
 
   getTrendingMovies();
 }

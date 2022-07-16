@@ -1,0 +1,35 @@
+.skeleton-loader-img {
+  background: #eee;
+  background: linear-gradient(82deg, #d6d6d6 8%, #f5f5f5 18%, #d6d6d6 33%);
+  height: 220px;
+  width: 150px;
+  border-radius: 8px;
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+}
+.skeleton-loader-img:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.skeleton-loader-img:nth-child(3) {
+  animation-delay: 0.4s;
+}
+.skeleton-loader-category {
+  background: rgb(255, 0, 0);
+  height: 21px;
+  width: 170px;
+  background: linear-gradient(82deg, #d6d6d6 8%, #f5f5f5 18%, #d6d6d6 33%);
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+  margin-bottom: 8px;
+}
+.skeleton-loader-category:nth-child(2) {
+  animation-delay: 0.6s;
+}
+.skeleton-loader-category:nth-child(3) {
+  animation-delay: 0.4s;
+}
+@keyframes shine {
+  to {
+    background-position-x: -100%;
+  }
+}
