@@ -1,3 +1,5 @@
+let languages = 'es';
+
 const api = axios.create({
   baseURL: 'https://api.themoviedb.org/3/',
   headers: {
@@ -5,8 +7,33 @@ const api = axios.create({
   },
   params: {
     'api_key': API_KEY,
+    'language': navigator.language
+
   },
 });
+const likedMovie = () => {
+  const item = JSON.parse(localStorage.getItem('liked'))
+  if (item) {
+    return item
+  } else {
+    return {}
+  }
+}
+const likeMovies = (movie) => {
+  const likedMovies = likedMovie()
+
+  if (likedMovies[movie.id]) {
+    likedMovies[movie.id] = undefined
+  } else {
+    likedMovies[movie.id] = movie
+  }
+  localStorage.setItem('liked', JSON.stringify(likedMovies))
+  // if (location.hash == '') {
+  //   homePage();
+  // }
+
+  console.log(JSON.parse(localStorage.getItem('liked')));
+}
 // Utils
 const LazyLoader = new IntersectionObserver((elements) => {
   elements.forEach(entry => {
@@ -18,15 +45,23 @@ const LazyLoader = new IntersectionObserver((elements) => {
     }
   })
 })
-function createMovies(movies, container, clean = true) {
+function createMovies(movies, container, clean = true, isLiked = false) {
   if (clean) {
     container.innerHTML = '';
   }
   movies.forEach(movie => {
     const movieContainer = document.createElement('div');
     movieContainer.classList.add('movie-container');
-    movieContainer.addEventListener('click', () => {
-      location.hash = '#movie=' + movie.id;
+
+    const likeBtn = document.createElement('button')
+    likeBtn.classList.add('like-btn')
+    if (isLiked) {
+      likeBtn.classList.add('movie-btn--liked')
+    }
+    likeBtn.addEventListener('click', () => {
+      likeBtn.classList.toggle('movie-btn--liked')
+      likeMovies(movie)
+      getlikedMovies()
     });
 
     const movieImg = document.createElement('img');
@@ -36,7 +71,11 @@ function createMovies(movies, container, clean = true) {
       'dataImg',
       'https://image.tmdb.org/t/p/w300' + movie.poster_path,
     );
+    movieImg.addEventListener('click', () => {
+      location.hash = '#movie=' + movie.id;
+    });
     movieContainer.appendChild(movieImg);
+    movieContainer.appendChild(likeBtn);
     container.appendChild(movieContainer);
     LazyLoader.observe(movieImg)
   });
@@ -85,6 +124,7 @@ async function getMoviesByCategory(id) {
   createMovies(movies, genericSection);
 }
 function getPaginatedCategoryMovies(id) {
+  page = 1
   return async function () {
     const {
       scrollTop,
@@ -98,7 +138,8 @@ function getPaginatedCategoryMovies(id) {
       const { data } = await api('discover/movie', {
         params: {
           with_genres: id,
-          page
+          page,
+
         },
       });
       const movies = data.results;
@@ -188,4 +229,14 @@ async function getRelatedMoviesId(id) {
   const relatedMovies = data.results;
 
   createMovies(relatedMovies, relatedMoviesContainer);
+}
+function getlikedMovies() {
+  const likedMovies = likedMovie()
+  const moviesArray = Object.values(likedMovies);
+  if (moviesArray.length >= 1) {
+    FavoritesMoviesContainer.classList.remove('inactive')
+    createMovies(moviesArray, FavoritesMoviesArticle, true, true);
+  } else {
+    FavoritesMoviesContainer.classList.add('inactive')
+  }
 }
