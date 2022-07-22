@@ -48,6 +48,7 @@ function navigatorPath() {
 function homePage() {
   console.log('Home!!');
 
+
   headerSection.classList.remove('header-container--long');
   headerSection.style.background = '';
   arrowBtn.classList.add('inactive');
