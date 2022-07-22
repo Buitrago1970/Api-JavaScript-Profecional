@@ -21,10 +21,31 @@
     <h1 class="header-title header-title--categoryView inactive">Acción</h1>
 
     <form id="searchForm" class="header-searchForm">
-      <input type="text" placeholder="Vengadores" />
       <button id="searchBtn">🔍</button>
+      <input type="text" placeholder="Vengadores" />
+      
     </form>
   </header>
+
+
+  <section id="categoriesPreview" class="categoriesPreview-container">
+    <h2 class="categoriesPreview-title">Categorías</h2>
+
+    <article class="categoriesPreview-list">
+     
+      <div class="category-container">
+        <div class="skeleton-loader-category"></div>
+        <div class="skeleton-loader-category"></div>
+        <div class="skeleton-loader-category"></div>
+        <div class="skeleton-loader-category"></div>
+      </div> <div class="category-container">
+        <div class="skeleton-loader-category"></div>
+        <div class="skeleton-loader-category"></div>
+        <div class="skeleton-loader-category"></div>
+        <div class="skeleton-loader-category"></div>
+      </div>
+    </article>
+  </section>
 
   <section id="trendingPreview" class="trendingPreview-container">
     <div class="trendingPreview-header">
@@ -62,24 +83,6 @@
     </article>
   </section>
 
-  <section id="categoriesPreview" class="categoriesPreview-container">
-    <h2 class="categoriesPreview-title">Categorías</h2>
-
-    <article class="categoriesPreview-list">
-     
-      <div class="category-container">
-        <div class="skeleton-loader-category"></div>
-        <div class="skeleton-loader-category"></div>
-        <div class="skeleton-loader-category"></div>
-        <div class="skeleton-loader-category"></div>
-      </div> <div class="category-container">
-        <div class="skeleton-loader-category"></div>
-        <div class="skeleton-loader-category"></div>
-        <div class="skeleton-loader-category"></div>
-        <div class="skeleton-loader-category"></div>
-      </div>
-    </article>
-  </section>
 
   <section id="genericList" class="genericList-container inactive">
     <!-- <div class="movie-container">
@@ -108,11 +111,14 @@
   </section>
 
   <section id="movieDetail" class="movieDetail-container inactive">
-    <h1 class="movieDetail-title">Deadpool</h1>
-    <span class="movieDetail-score">7.6</span>
-    <p class="movieDetail-description">
-      Wisecracking mercenary Deadpool battles the evil and powerful Cable and other bad guys to save a boy's life.
-    </p>
+    <div class="container-header-movieDetail">
+      <h1 class="movieDetail-title">Deadpool</h1>
+      <div class="container-icons-movieDetail">
+        <span class="movieDetail-score">7.6</span>
+        <button class="like-btn-movieDetail"></button>
+      </div>
+    </div>
+ 
 
     <article class="categories-list">
       <div class="category-container">
@@ -127,6 +133,9 @@
         <h3 id="id14" class="category-title">Acción</h3>
       </div>
     </article>
+    <p class="movieDetail-description">
+      Wisecracking mercenary Deadpool battles the evil and powerful Cable and other bad guys to save a boy's life.
+    </p>
 
     <article class="relatedMovies-container">
       <h2 class="relatedMovies-title">Películas similares</h2>

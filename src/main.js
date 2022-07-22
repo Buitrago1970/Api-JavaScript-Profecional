@@ -28,9 +28,6 @@ const likeMovies = (movie) => {
     likedMovies[movie.id] = movie
   }
   localStorage.setItem('liked', JSON.stringify(likedMovies))
-  // if (location.hash == '') {
-  //   homePage();
-  // }
 
   console.log(JSON.parse(localStorage.getItem('liked')));
 }
@@ -52,7 +49,6 @@ function createMovies(movies, container, clean = true, isLiked = false) {
   movies.forEach(movie => {
     const movieContainer = document.createElement('div');
     movieContainer.classList.add('movie-container');
-
     const likeBtn = document.createElement('button')
     likeBtn.classList.add('like-btn')
     if (isLiked) {
@@ -204,9 +200,7 @@ async function getPaginatedTrendingMovies() {
 }
 async function getMovieById(id) {
   const { data: movie } = await api('movie/' + id);
-
   const movieImgUrl = 'https://image.tmdb.org/t/p/w500' + movie.poster_path;
-  console.log(movieImgUrl)
   headerSection.style.background = `
     linear-gradient(
       180deg,
@@ -215,6 +209,12 @@ async function getMovieById(id) {
     ),
     url(${movieImgUrl})
   `;
+
+  movieDetaiLikeBtn.addEventListener('click', () => {
+    movieDetaiLikeBtn.classList.toggle('like-btn-movieDetail')
+    movieDetaiLikeBtn.classList.toggle('movie-btn--liked')
+    likeMovies(movie)
+  });
 
   movieDetailTitle.textContent = movie.title;
   movieDetailDescription.textContent = movie.overview;

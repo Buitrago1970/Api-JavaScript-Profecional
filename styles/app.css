@@ -2,6 +2,9 @@
 * {
   box-sizing: border-box;
 }
+*:focus {
+  outline: none;
+}
 
 :root {
   --purple-light-1: #fbfafb;
@@ -14,6 +17,7 @@
 
   --yellow: #eecc75;
   --green: #cad297;
+  --black: #0c0c0c;
   --aqua: #b7eac5;
   --lightBlue: #a2eee5;
   --darkBlue: #8ea2ea;
@@ -21,14 +25,15 @@
 
   --font-family-titles: "Dosis", sans-serif;
   --font-family-text: "Red Hat Display", sans-serif;
-  --font-weight-title1: 800;
-  --font-weight-title2: 700;
+  --font-weight-title1: 400;
+  --font-weight-title2: 400;
   --font-weight-text1: 400;
   --font-weight-text2: 500;
 }
 
 html {
   background-color: var(--purple-medium-3);
+  font-size: 62.5%;
 }
 
 body {
@@ -51,7 +56,7 @@ h3 {
 h1,
 h2 {
   font-size: 24px;
-  color: var(--purple-dark-2);
+  color: var(--black);
   font-family: var(--font-family-titles);
   font-weight: var(--font-weight-title1);
   margin: 0;
@@ -59,8 +64,8 @@ h2 {
 }
 
 h2 {
-  font-size: 18px;
-  color: var(--purple-dark-1);
+  font-size: 1.8rem;
+  color: var(--black);
   font-weight: var(--font-weight-title2);
 }
 
@@ -69,33 +74,37 @@ h3 {
   font-weight: var(--font-weight-text2);
   font-size: 16px;
 }
-
+.header-searchForm {
+  background-color: var(--purple-light-1);
+  border: 1px solid transparent;
+  box-shadow: 0 2px 5px;
+  border-radius: 24px;
+}
 input {
-  background-color: var(--purple-light-2);
-  color: var(--purple-medium-2);
-  border: none;
+  border-radius: 20px;
+  font-weight: bold;
   font-size: 18px;
-  padding-left: 16px;
+  border: none;
 }
 
 input::placeholder {
-  color: var(--purple-medium-1);
   font-family: var(--font-family-text);
 }
 
 button {
-  background-color: var(--purple-dark-1);
   border: none;
-  color: var(--purple-light-2);
+  background-color: var(--purple-light-1);
+  color: var(--purple-light-1);
   font-weight: var(--font-weight-text2);
-  font-size: 14px;
+  font-size: 1.4rem;
   cursor: pointer;
+  border-radius: 20px;
+  font-size: 1.6rem;
 }
 
 /* Shared */
 .header-container,
 .trendingPreview-header,
-.categoriesPreview-container,
 .favoritesPreview-header {
   padding: 0 24px;
 }
@@ -111,6 +120,9 @@ button {
 .favoritesPreview-header {
   margin-bottom: 24px;
   margin-top: 24px;
+}
+.categoriesPreview-title {
+  padding: 0 20px;
 }
 
 .movie-container {
@@ -141,9 +153,11 @@ button {
 .movie-btn--liked {
   background-color: var(--purple-light-2);
   box-shadow: 0px 0px 10px 2px var(--purple-dark-1);
+  height: 30px;
+  width: 30px;
 }
 .movie-btn--liked::before {
-  content: "💜";
+  content: "❤️";
 }
 
 .categoriesPreview-list,
@@ -151,13 +165,18 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
-  flex-wrap: wrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  height: 40px;
+  border: 1px solid;
+  background-color: #f2f2f2;
+  margin-bottom: 24px;
 }
 
 /* Header */
 .header-container {
-  padding-top: 40px;
+  padding-top: 30px;
 }
 
 .header-container--long {
@@ -184,7 +203,7 @@ button {
 }
 
 .header-title {
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .header-arrow {
@@ -228,9 +247,9 @@ button {
 }
 
 .trendingPreview-btn {
-  border-radius: 8px;
+  border-radius: 5px;
   height: 32px;
-  width: 72px;
+  width: 85px;
 }
 
 .trendingPreview-movieList,
@@ -267,27 +286,26 @@ button {
 
 /* Categories */
 .category-container {
-  width: 45%;
+  margin: 0 20px;
 }
 
 .category-title {
-  margin-bottom: 8px;
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.category-title::before {
+/* .category-title::before {
   content: "••••";
   color: transparent;
-  /* TODO: cambiar color por ID de la categoría */
+  TODO: cambiar color por ID de la categoría
   background-color: var(--idColor);
   border-radius: 8px;
   margin-right: 8px;
   width: 8px;
   height: 8px;
-}
+} */
 #id28 {
   --idColor: var(--yellow);
 }
@@ -357,7 +375,7 @@ button {
 
 .genericList-container .movie-container {
   display: inline-block;
-  width: 47.5%;
+  /* width: 47.5%; */
 }
 
 .genericList-container .movie-img {
@@ -374,14 +392,23 @@ button {
   position: absolute;
   background-color: var(--purple-light-1);
 }
-
+.container-header-movieDetail {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: baseline;
+  margin-bottom: 24px;
+}
 .movieDetail-title {
   display: inline-block;
   width: 80%;
   margin: 0 0 16px 0;
   padding: 0;
 }
-
+.container-icons-movieDetail {
+  justify-content: space-around;
+  display: flex;
+  align-items: baseline;
+}
 .movieDetail-score {
   display: inline-block;
   text-align: right;
@@ -393,9 +420,17 @@ button {
   color: var(--yellow);
   padding-right: 4px;
 }
-
+.like-btn-movieDetail {
+  box-shadow: 0px 0px 10px 2px #949494;
+  height: 30px;
+  width: 30px;
+}
+.like-btn-movieDetail::before {
+  content: "🤍";
+}
 .movieDetail-description {
   margin: 0 0 24px 0;
+  text-align: center;
 }
 
 .relatedMovies-container {
